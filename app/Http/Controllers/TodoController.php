@@ -55,15 +55,16 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        //
-    }
+     }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Todo $todo)
     {
-      
+        if ($todo->user_id == Auth::id()) {
+            return Inertia::render('Edit', compact('todo'));
+        }
     }
 
     /**

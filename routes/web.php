@@ -36,8 +36,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/dashboard', [TodoController::class, 'index'])->name('dashboard');
-
+  
     Route::post('/dashboard/todos/store', [TodoController::class, 'store'])->name('todos.store');
+    Route::get('/dashboard/todos/{todo}', [TodoController::class, 'edit'])->name('todos.edit');
     Route::put('/dashboard/todos/{todo}', [TodoController::class, 'update'])->name('todos.update');
     Route::get('/dashboard/todos/{todo}/isComplete', [TodoController::class, 'isComplete'])->name('todos.isComplete');
     Route::delete('/dashboard/todos/{todo}', [TodoController::class, 'destroy'])->name('todos.destroy');

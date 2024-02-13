@@ -9,8 +9,8 @@ export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
-        <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <nav className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 fixed w-full">
+        <div className="min-h-screen bg-slate-300  dark:bg-black">
+            <nav className="bg-slate-100 py-5 shadow-xl rounded-b-3xl dark:bg-gray-800  fixed w-full">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
                         <div className="flex">
@@ -18,6 +18,8 @@ export default function Authenticated({ user, header, children }) {
                                 <Link href="/">
                                     {/* <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" /> */}
                                 </Link>
+
+                                <h2 className='font-bold dark:text-white text-2xl'>CIAO {user.name.toUpperCase(9)}</h2>
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
