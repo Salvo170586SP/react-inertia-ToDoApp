@@ -6,6 +6,7 @@ export default function Dashboard({ auth, todos }) {
     const { data, setData } = useForm({
         title: "",
         description: "",
+        img_url: "",
     });
 
     /* isCompleteRoute */
@@ -17,6 +18,11 @@ export default function Dashboard({ auth, todos }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         router.post(route("todos.store"), data);
+        setData({
+            title: "",
+            description: "",
+            img_url: "",
+        });
     };
 
     /* DELETE */
@@ -27,18 +33,6 @@ export default function Dashboard({ auth, todos }) {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setData({ ...data, [name]: value });
-    };
-
-    /*  useEffect(() => {
-        setData({ 
-            title: data?.title,
-            description: data?.description,
-        });
-    }, []); */
-
-    /*  EDIT */
-    const handleEdit = (todoId) => {
-        router.put(route("todos.update", todoId), data);
     };
 
     return (
@@ -103,7 +97,7 @@ export default function Dashboard({ auth, todos }) {
                                         x-transition:leave-end="transform translate-x-full"
                                         className="w-screen max-w-md "
                                     >
-                                        <div className="h-full w-screen  bg-slate-200 dark:bg-black dark:border-gray-700 dark:text-white text-black   flex flex-col py-6 shadow-xl">
+                                        <div className="h-full w-screen  bg-slate-300 dark:bg-black dark:border-gray-700 dark:text-white text-black   flex flex-col py-6 shadow-xl">
                                             <div className="flex items-center justify-between px-4">
                                                 <h2 className="text-xl font-semibold  ">
                                                     Aggiungi Todo
@@ -156,20 +150,20 @@ export default function Dashboard({ auth, todos }) {
                                                         className="w-full p-2 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 dark:text-gray-400 rounded-2xl transition-colors duration-300"
                                                     ></textarea>
                                                 </div>
-                                                {/*  <div className="mt-4 px-4 ">
+                                                <div className="mt-4 px-4 ">
                                                     <input
                                                         type="file"
                                                         name="img_url"
                                                         className="w-full p-2 "
-                                                         onChange={(e) =>
+                                                        onChange={(e) =>
                                                             setData(
                                                                 "img_url",
                                                                 e.target
-                                                                    .files[0] 
+                                                                    .files[0]
                                                             )
                                                         }
                                                     />
-                                                </div> */}
+                                                </div>
                                                 <div className="mt-4 px-4  fixed bottom-5">
                                                     <button
                                                         x-on:click="open = false"
@@ -187,16 +181,17 @@ export default function Dashboard({ auth, todos }) {
                     </div>
 
                     <div className="flex flex-col justify-center items-center mt-20">
+                    
                         {todos.length === 0 ? (
+                            
                             <div className="flex flex-col items-center">
-                              
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     stroke-width="1.5"
                                     stroke="currentColor"
-                                    class="w-8 h-8 dark:text-gray-300 "
+                                    className="w-8 h-8 dark:text-gray-300 "
                                 >
                                     <path
                                         stroke-linecap="round"
@@ -211,6 +206,9 @@ export default function Dashboard({ auth, todos }) {
                         ) : (
                             ""
                         )}
+                        <div className="w-full md:w-[100px] mb-5 ">
+                            <Link href="/dashboard/todos" className="bg-slate-600 text-white rounded-2xl px-4 py-3 ">preferiti</Link>
+                        </div>
                         {todos.map((todo) => {
                             return (
                                 <div key={todo.id}>
@@ -224,7 +222,7 @@ export default function Dashboard({ auth, todos }) {
                                                 todo.is_complete == 1
                                                     ? " dark:bg-gray-800/90   bg-slate-100 text-black  "
                                                     : " dark:bg-gray-700/90  bg-slate-50  text-black  "
-                                            } w-[22rem] shadow-xl rounded-3xl  mb-3 `}
+                                            } w-[22rem] md:w-[44rem] shadow-xl rounded-3xl  mb-3 `}
                                         >
                                             <div className="flex justify-between items-center">
                                                 <button
@@ -254,7 +252,7 @@ export default function Dashboard({ auth, todos }) {
                                                             xmlns="http://www.w3.org/2000/svg"
                                                             viewBox="0 0 24 24"
                                                             fill="black"
-                                                            class="w-6 h-6"
+                                                            className="w-6 h-6"
                                                         >
                                                             <path
                                                                 fill-rule="evenodd"
@@ -266,7 +264,6 @@ export default function Dashboard({ auth, todos }) {
                                                 </button>
 
                                                 {/* delete */}
-
                                                 <div
                                                     x-data={`{delete${todo.id} : false}`}
                                                 >
@@ -286,7 +283,7 @@ export default function Dashboard({ auth, todos }) {
                                                     >
                                                         <div className="flex items-end justify-center min-h-screen px-4 text-center md:items-center sm:block sm:p-0">
                                                             <div
-                                                                x-cloak
+                                                                x-cloak="true.toString()"
                                                                 x-on:click={`delete${todo.id} = false`}
                                                                 x-show={`delete${todo.id}`}
                                                                 x-transition:enter="transition ease-out duration-300 transform"
@@ -300,7 +297,7 @@ export default function Dashboard({ auth, todos }) {
                                                             ></div>
 
                                                             <div
-                                                                x-cloak
+                                                                x-cloak="true.toString()"
                                                                 x-show={`delete${todo.id}`}
                                                                 x-transition:enter="transition ease-out duration-300 transform"
                                                                 x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
@@ -308,7 +305,7 @@ export default function Dashboard({ auth, todos }) {
                                                                 x-transition:leave="transition ease-in duration-200 transform"
                                                                 x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                                                                 x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                                                                className="w-[350px]  inline-block w-full max-w-xl p-8 my-20 overflow-hidden text-left transition-all transform bg-white dark:bg-gray-900 dark:text-gray-400 rounded-3xl shadow-xl 2xl:max-w-2xl"
+                                                                className="w-[350px]  inline-block w-full max-w-xl p-8 my-5 overflow-hidden text-left transition-all transform bg-slate-200 dark:bg-gray-900 dark:text-gray-400 rounded-3xl shadow-xl 2xl:max-w-2xl"
                                                             >
                                                                 <div className="flex items-center justify-between space-x-4">
                                                                     <h1 className="text-xl font-medium  ">
@@ -361,13 +358,14 @@ export default function Dashboard({ auth, todos }) {
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 {/* enddelete */}
                                             </div>
 
                                             {/* box card */}
                                             <button
                                                 x-on:click={`info${todo.id} = true`}
+
+                                                className="w-full"
                                             >
                                                 <div className="grid grid-cols-6 p-5 gap-y-2">
                                                     <div>
@@ -378,7 +376,7 @@ export default function Dashboard({ auth, todos }) {
                                                                         "/storage/" +
                                                                         todo.img_url
                                                                     }
-                                                                    className="rounded-full w-full h-full object-cover"
+                                                                    className="rounded-full border w-full h-full object-cover"
                                                                 />
                                                             ) : (
                                                                 <img
@@ -405,9 +403,9 @@ export default function Dashboard({ auth, todos }) {
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <div className="flex justify-end">
-                                                    <small className="dark:text-gray-400    py-1 mr-5">
-                                                        {todo.updated_at.slice(
+                                                <div className="flex   md:justify-center">
+                                                    <small className="dark:text-gray-400  py-1 ml-5 md:ml-0">
+                                                     creazione/modifica:  {todo.updated_at.slice(
                                                             0,
                                                             10
                                                         )}
@@ -433,7 +431,7 @@ export default function Dashboard({ auth, todos }) {
                                                     x-transition:leave-end="transform translate-x-full"
                                                     className="w-screen  max-w-md "
                                                 >
-                                                    <div className="h-full w-screen backdrop-blur-sm bg-slate-200  dark:bg-black dark:border-gray-700 dark:text-white text-black   flex flex-col py-6 shadow-xl">
+                                                    <div className="h-full w-screen backdrop-blur-sm bg-slate-300  dark:bg-black dark:border-gray-700 dark:text-white text-black   flex flex-col py-6 shadow-xl">
                                                         <div className="flex items-center justify-between px-4">
                                                             <div className="flex items-center">
                                                                 <h2 className="text-xl font-semibold me-32 ">
@@ -448,7 +446,7 @@ export default function Dashboard({ auth, todos }) {
                                                                         xmlns="http://www.w3.org/2000/svg"
                                                                         viewBox="0 0 24 24"
                                                                         fill="currentColor"
-                                                                        class="w-6 h-6"
+                                                                        className="w-6 h-6"
                                                                     >
                                                                         <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
                                                                         <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
@@ -576,14 +574,14 @@ export default function Dashboard({ auth, todos }) {
                                                         </div>
                                                         <div className="mt-10  mx-auto">
                                                             <div>
-                                                                <figure className="w-[350px] h-[300px]  ">
+                                                                <figure className="w-[350px] h-[300px] lg:w-[900px] lg:h-[400px] overflow-hidden ">
                                                                     {todo.img_url ? (
                                                                         <img
                                                                             src={
                                                                                 "/storage/" +
                                                                                 todo.img_url
                                                                             }
-                                                                            className="rounded-full w-full h-full object-cover"
+                                                                            className="rounded-2xl w-full h-full object-cover"
                                                                         />
                                                                     ) : (
                                                                         <img

@@ -6,18 +6,20 @@ export default function Edit({ auth, todo }) {
     const { data, setData } = useForm({
         title: "",
         description: "",
+        img_url: "",
     });
 
     useEffect(() => {
         setData({
             title: todo?.title,
             description: todo?.description,
+            img_url: todo?.img_url,
         });
     }, []);
 
     /*  EDIT */
     const handleEdit = (todoId) => {
-        router.put(route("todos.update", todoId), data);
+        router.post(route("todos.update", todoId), data);
     };
 
     const handleChange = (e) => {
@@ -34,7 +36,7 @@ export default function Edit({ auth, todo }) {
                     <div className="w-full flex flex-col justify-center items-center mt-20">
                         <div className="flex w-full text-center">
                             <Link
-                                className="w-[350px] bg-gray-600 dark:bg-gray-700 rounded-2xl  px-4 py-4  text-white"
+                                className="w-[350px] bg-gray-600 dark:bg-gray-700 rounded-2xl  px-4 py-4 mt-5 text-white"
                                 href="/dashboard"
                             >
                                 INDIETRO
@@ -42,7 +44,8 @@ export default function Edit({ auth, todo }) {
                         </div>
                         {/* modifica */}
                         <form
-                            className="w-full"
+                        encType="multipart/form-data"
+                            className="w-full mt-10"
                             onSubmit={(e) => {
                                 e.preventDefault();
                                 handleEdit(todo.id);
@@ -70,8 +73,17 @@ export default function Edit({ auth, todo }) {
                                     className="w-full p-2 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 dark:text-gray-400 rounded-2xl transition-colors duration-300"
                                 ></textarea>
                             </div>
-
-                            <div className="w-full fixed bottom-3 ">
+                            <div className="mt-4 px-4 ">
+                                <input
+                                    type="file"
+                                    name="img_url"
+                                    className="w-full p-2 "
+                                    onChange={(e) =>
+                                        setData("img_url", e.target.files[0])
+                                    }
+                                />
+                            </div>
+                            <div className="w-full fixed bottom-3 md:flex md:justify-center">
                                 <button
                                     x-on:click={`edit${todo.id} = false`}
                                     className="w-[350px] bg-gray-600 dark:bg-gray-700 rounded-2xl  px-4 py-4  text-white"

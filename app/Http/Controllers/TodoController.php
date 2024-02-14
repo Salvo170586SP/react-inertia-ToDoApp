@@ -41,10 +41,10 @@ class TodoController extends Controller
         $todo->user_id = Auth::user()->id;
         $todo->title = $request->title;
         $todo->description = $request->description;
-        /*   if (array_key_exists('img_url', $request->all())) {
+        if ($request->hasfile('img_url')) {
             $url = Storage::put('/draw_imgs', $request['img_url']);
             $todo->img_url = $url;
-        } */
+        }
         $todo->save();
 
         return to_route('dashboard');
@@ -55,7 +55,7 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-     }
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -72,15 +72,22 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
+        //UPDATE DELL'IMMAGINE
+        if ($request->hasfile('img_url')) {
+            if ($todo->img_url) {
+                Storage::delete($todo->img_url);
+            }
 
+            $urlImg = Storage::put('/draw_imgs', $request['img_url']);
+            $todo->img_url = $urlImg;
+        }
 
 
         $todo->update([
             'title' => $request->title,
             'description' => $request->description,
+            
         ]);
-
-
 
         return to_route('dashboard');
     }
@@ -91,6 +98,9 @@ class TodoController extends Controller
     public function destroy(Todo $todo)
     {
         if ($todo->user_id == Auth::id()) {
+            if ($todo->img_url) {
+                Storage::delete($todo->img_url);
+            }
             $todo->delete();
         }
         return to_route('dashboard');
@@ -109,5 +119,15 @@ class TodoController extends Controller
         $todo->save();
 
         return to_route('dashboard');
+    }
+
+
+    public function showFavorites()
+    {
+        $userId = Auth::user()->id;
+
+        $todos =  Todo::where('user_id', $userId)->get();
+  
+        return Inertia::render('Favorites', compact('todos'));
     }
 }
