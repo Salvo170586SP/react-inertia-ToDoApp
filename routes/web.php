@@ -42,7 +42,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/dashboard/todos/{todo}', [TodoController::class, 'update'])->name('todos.update');
     Route::get('/dashboard/todos/{todo}/isComplete', [TodoController::class, 'isComplete'])->name('todos.isComplete');
     Route::delete('/dashboard/todos/{todo}', [TodoController::class, 'destroy'])->name('todos.destroy');
-    Route::get('/dashboard/todos', [TodoController::class, 'showFavorites'])->name('todos.showFavorites');
 });
 
 require __DIR__ . '/auth.php';

@@ -37,6 +37,12 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'title' => 'required|max:50',
+            'description' => 'max:100'
+        ]);
+        
         $todo = new Todo();
         $todo->user_id = Auth::user()->id;
         $todo->title = $request->title;
@@ -72,6 +78,11 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
+        
+        $request->validate([
+            'title' => 'required|max:50',
+            'description' => 'max:100'
+        ]);
         //UPDATE DELL'IMMAGINE
         if ($request->hasfile('img_url')) {
             if ($todo->img_url) {
@@ -86,7 +97,7 @@ class TodoController extends Controller
         $todo->update([
             'title' => $request->title,
             'description' => $request->description,
-            
+
         ]);
 
         return to_route('dashboard');
@@ -119,15 +130,5 @@ class TodoController extends Controller
         $todo->save();
 
         return to_route('dashboard');
-    }
-
-
-    public function showFavorites()
-    {
-        $userId = Auth::user()->id;
-
-        $todos =  Todo::where('user_id', $userId)->get();
-  
-        return Inertia::render('Favorites', compact('todos'));
     }
 }
