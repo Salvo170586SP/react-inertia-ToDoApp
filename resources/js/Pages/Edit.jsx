@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 
 export default function Edit({ auth, todo }) {
     const title = useRef();
-
     const { errors } = usePage().props;
 
     const { data, setData } = useForm({
@@ -97,7 +96,7 @@ export default function Edit({ auth, todo }) {
                                 <button
                                     x-on:click={`edit${todo.id} = false`}
                                     className="bg-gray-600 dark:bg-gray-700 w-full md:w-44 flex  justify-center items-center text-white rounded-3xl px-2 py-5"
-                                    >
+                                >
                                     MODIFICA
                                 </button>
                             </div>
