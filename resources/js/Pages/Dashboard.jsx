@@ -2,6 +2,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
 import { useRef, useState } from "react";
 import CardTodo from "@/Components/CardTodo";
+import WelcomeMessage from "@/Components/WelcomeMessage";
 
 export default function Dashboard({ auth, todos, todo }) {
     const title = useRef();
@@ -45,10 +46,20 @@ export default function Dashboard({ auth, todos, todo }) {
         setShowFavorites(!showFavorites);
     };
 
+    /* WELCOME MESSAGE */
+    // Recupera lo stato precedente della schermata di benvenuto dal Local Storage
+    const storedWelcomeScreen = localStorage.getItem("hideWelcomeScreen");
+    const [showWelcomeScreen, setShowWelcomeScreen] = useState(
+        storedWelcomeScreen !== "true"
+    );
+    const hideWelcomeScreen = () => {
+        setShowWelcomeScreen(false);
+        localStorage.setItem("hideWelcomeScreen", "true");
+    };
+
     return (
         <AuthenticatedLayout user={auth.user}>
             <Head title="Dashboard" />
-
             <div className="pt-3  ">
                 <div className=" mx-5">
                     <div className="flex justify-center">
@@ -198,7 +209,17 @@ export default function Dashboard({ auth, todos, todo }) {
                         {/* END CREATE TODO */}
                     </div>
 
-                    <div className="flex flex-col justify-center items-center py-28">
+                    <div className="flex flex-col justify-center items-center py-28 ">
+                        <div className={`absolute bottom-[50%]   top-[25%] `}>
+                            {showWelcomeScreen ? (
+                                <WelcomeMessage
+                                    hideWelcomeScreen={hideWelcomeScreen}
+                                />
+                            ) : (
+                                ""
+                            )}
+                        </div>
+
                         {todos.length === 0 ? (
                             <div className="flex flex-col items-center mt-20">
                                 <svg
