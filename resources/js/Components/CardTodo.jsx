@@ -142,17 +142,16 @@ export default function CardTodo({ todo, handleChangeFavorite, handleDelete }) {
             <button x-on:click={`info${todo.id} = true`} className="w-full">
                 <div className="grid grid-cols-6 p-5 gap-y-2">
                     <div>
-                        <figure className="w-[60px] h-[60px]  ">
+                        <figure className="w-[60px] h-[60px]">
                             {todo.img_url ? (
                                 <img
                                     src={"/storage/" + todo.img_url}
                                     className="rounded-full border w-full h-full object-cover"
                                 />
                             ) : (
-                                <img
-                                    src="http://hwr.org.uk/wp-content/uploads/2016/11/placeholder-dark-600-400-729dad18518ecd2cd47afb63f9e6eb09.jpg"
-                                    className="rounded-full w-full h-full object-cover"
-                                />
+                                <div className="rounded-full border w-full h-full object-cover bg-zinc-500 flex justify-center items-center text-sm text-white">
+                                    No Img
+                                </div>
                             )}
                         </figure>
                     </div>

@@ -311,102 +311,6 @@ export default function Dashboard({ auth, todos, todo }) {
                                                                             <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
                                                                         </svg>
                                                                     </Link>
-                                                                    {/* modifica */}
-                                                                    {/*   <div
-                                                                    x-data={`{edit${todo.id}: false}`}
-                                                                >
-                                                                    <button
-                                                                        x-on:click={`edit${todo.id} = true`}
-                                                                        className="dark:bg-gray-800 bg-blue-700 text-white rounded-xl py-2 px-5"
-                                                                    >
-                                                                        Modifica
-                                                                    </button>
-                                                              
-                                                                   
-                                                                    <div
-                                                                        x-show={`edit${todo.id}`}
-                                                                        className="fixed inset-0 z-50 overflow-y-auto"
-                                                                        aria-labelledby="modal-title"
-                                                                        role="dialog"
-                                                                        aria-modal="true"
-                                                                    >
-                                                                        <div className="flex items-end justify-center min-h-screen px-4 text-center md:items-center sm:block sm:p-0">
-                                                                            <div
-                                                                                x-cloak
-                                                                                x-on:click={`edit${todo.id} = false`}
-                                                                                x-show={`edit${todo.id}`}
-                                                                                x-transition:enter="transition ease-out duration-300 transform"
-                                                                                x-transition:enter-start="opacity-0"
-                                                                                x-transition:enter-end="opacity-100"
-                                                                                x-transition:leave="transition ease-in duration-200 transform"
-                                                                                x-transition:leave-start="opacity-100"
-                                                                                x-transition:leave-end="opacity-0"
-                                                                                className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-40"
-                                                                                aria-hidden="true"
-                                                                            ></div>
-
-                                                                            <div
-                                                                                x-cloak
-                                                                                x-show={`edit${todo.id}`}
-                                                                                x-transition:enter="transition ease-out duration-300 transform"
-                                                                                x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                                                                                x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
-                                                                                x-transition:leave="transition ease-in duration-200 transform"
-                                                                                x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                                                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                                                                                className="w-[350px]  inline-block w-full max-w-xl p-8 my-5 overflow-hidden text-left transition-all transform bg-white dark:bg-gray-900 dark:text-gray-400 rounded-3xl shadow-xl 2xl:max-w-2xl"
-                                                                            >
-                                                                                 <form
-                                                                                    onSubmit={(
-                                                                                        e
-                                                                                    ) => {
-                                                                                        e.preventDefault();
-                                                                                        handleEdit(
-                                                                                            todo.id
-                                                                                        );
-                                                                                    }}
-                                                                                >
-                                                                                    <div className="mt-4">
-                                                                                        <input
-                                                                                            name="title"
-                                                                                            type="text"
-                                                                                            value={
-                                                                                                data.title 
-                                                                                            }
-                                                                                            onChange={handleChange}
-                                                                                            placeholder="Titolo"
-                                                                                            className="w-full p-2 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 dark:text-gray-400 rounded-2xl transition-colors duration-300"
-                                                                                        />
-                                                                                    </div>
-
-                                                                                    <div className="mt-4  ">
-                                                                                        <textarea
-                                                                                            rows={5}
-                                                                                            name="description"
-                                                                                            type="text"
-                                                                                            value={
-                                                                                              data.description 
-                                                                                            }
-                                                                                            onChange={handleChange}
-                                                                                            placeholder="descrizione"
-                                                                                            className="w-full p-2 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 dark:text-gray-400 rounded-2xl transition-colors duration-300"
-                                                                                        ></textarea>
-                                                                                    </div>
-
-                                                                                    <div className="mt-4   ">
-                                                                                        <button
-                                                                                            x-on:click={`edit${todo.id} = false`}
-                                                                                            className="w-full bg-blue-700 dark:bg-gray-700 rounded-2xl  px-4 py-3  text-white"
-                                                                                        >
-                                                                                            MODIFICA
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </form>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div> */}
-                                                                    {/* end modifica */}
                                                                 </div>
 
                                                                 <button
@@ -433,7 +337,7 @@ export default function Dashboard({ auth, todos, todo }) {
                                                             </div>
                                                             <div className="mt-10 px-5  mx-auto">
                                                                 <div>
-                                                                    <figure className="w-full    md:w-[700px] md:h-[400px] overflow-hidden ">
+                                                                    <figure className="w-full md:w-[700px] md:h-[400px] overflow-hidden">
                                                                         {todo.img_url ? (
                                                                             <img
                                                                                 src={
@@ -443,10 +347,10 @@ export default function Dashboard({ auth, todos, todo }) {
                                                                                 className="rounded-2xl w-full h-full object-cover"
                                                                             />
                                                                         ) : (
-                                                                            <img
-                                                                                src="http://hwr.org.uk/wp-content/uploads/2016/11/placeholder-dark-600-400-729dad18518ecd2cd47afb63f9e6eb09.jpg"
-                                                                                className="rounded-2xl w-full h-full object-cover"
-                                                                            />
+                                                                            <div className="rounded-2xl w-full h-full object-cover bg-zinc-500 flex justify-center items-center text-sm text-white">
+                                                                                No
+                                                                                Img
+                                                                            </div>
                                                                         )}
                                                                     </figure>
                                                                 </div>
